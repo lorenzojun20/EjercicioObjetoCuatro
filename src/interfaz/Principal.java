@@ -18,6 +18,7 @@ public class Principal extends javax.swing.JFrame {
     /**
      * Creates new form Principal
      */
+    Password p;
     public Principal() {
         initComponents();
         txtClave.setEditable(true);
@@ -45,11 +46,10 @@ public class Principal extends javax.swing.JFrame {
         cmdMostrar = new javax.swing.JButton();
         cmdCambiar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        txtClave2 = new javax.swing.JTextField();
+        txtResultado = new javax.swing.JTextField();
         cmdGuardar = new javax.swing.JButton();
         cmdLimpiar = new javax.swing.JButton();
         cmdEstabilidad = new javax.swing.JButton();
-        txtEstabilidad = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -84,8 +84,8 @@ public class Principal extends javax.swing.JFrame {
         jLabel3.setText("Datos Actuales:");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, 130, 30));
 
-        txtClave2.setEditable(false);
-        jPanel1.add(txtClave2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 250, 300, 30));
+        txtResultado.setEditable(false);
+        jPanel1.add(txtResultado, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 250, 300, 30));
 
         cmdGuardar.setText("Guardar");
         cmdGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -110,7 +110,6 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         jPanel1.add(cmdEstabilidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 150, 130, 30));
-        jPanel1.add(txtEstabilidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 290, 300, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -128,7 +127,7 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cmdMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdMostrarActionPerformed
-       Password p;
+       
     int longitud;
     String clave;
     clave = txtClave.getText();
@@ -136,7 +135,7 @@ public class Principal extends javax.swing.JFrame {
     p = new Password(longitud,clave); 
     clave = p.getClave();
     longitud = p.getLongitud();
-    txtClave2.setText("Su contraseña actual es: "+clave+" y su longitud es: "+longitud);
+    txtResultado.setText("Su contraseña actual es: "+clave+" y su longitud es: "+longitud);
    
        
         txtClave.setEditable(false);
@@ -151,7 +150,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_cmdMostrarActionPerformed
 
     private void cmdGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdGuardarActionPerformed
-    Password p;
+    
     int longitud;
     String clave;
     if(txtClave.getText().trim().isEmpty()){
@@ -172,7 +171,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_cmdGuardarActionPerformed
 
     private void cmdCambiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdCambiarActionPerformed
-        Password p;
+        
         String cambio;
         int longitud,sw = 1;
         
@@ -182,8 +181,7 @@ public class Principal extends javax.swing.JFrame {
                 longitud = cambio.length();
                 p = new Password(longitud, cambio);
                 txtClave.setText(cambio);
-                txtClave2.setText("");
-                txtEstabilidad.setText("");
+                txtResultado.setText("");
                 JOptionPane.showMessageDialog(this, "¡Contraseña Modificada!");
                 sw = 1;
             } catch (NullPointerException e) {
@@ -207,8 +205,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void cmdLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdLimpiarActionPerformed
        txtClave.setText("");
-       txtClave2.setText("");
-       txtEstabilidad.setText("");
+       txtResultado.setText("");
        txtClave.requestFocusInWindow();
        
        txtClave.setEditable(true);
@@ -222,14 +219,20 @@ public class Principal extends javax.swing.JFrame {
 
     private void cmdEstabilidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdEstabilidadActionPerformed
         String clave;
-        String c;
-        int longitud;
-        Password p;
+        String aux;
+        int longitud;       
         clave = txtClave.getText();
         longitud = clave.length();
         p = new Password(longitud, clave);
-        c = p.estabilidad();
-        txtEstabilidad.setText(""+c);
+        aux = p.estabilidad();
+        txtResultado.setText(""+aux);
+        
+        txtClave.setEditable(false);
+        cmdMostrar.setEnabled(true);
+        cmdGuardar.setEnabled(false);
+        cmdCambiar.setEnabled(true);
+        cmdLimpiar.setEnabled(true);
+       cmdEstabilidad.setEnabled(false);
     }//GEN-LAST:event_cmdEstabilidadActionPerformed
 
     /**
@@ -278,7 +281,6 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField txtClave;
-    private javax.swing.JTextField txtClave2;
-    private javax.swing.JTextField txtEstabilidad;
+    private javax.swing.JTextField txtResultado;
     // End of variables declaration//GEN-END:variables
 }

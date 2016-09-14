@@ -17,6 +17,10 @@ public class Password {
         this.longitud = longi;
         this.clave = clave;
     }
+    public Password(String clave){
+        this.clave = clave;
+        this.longitud = 8;
+    }
 
     public int getLongitud() {
         return longitud;
@@ -34,17 +38,27 @@ public class Password {
         this.clave = clave;
     }
     public String estabilidad(){
-        
-        
-        String clave;
+        String aux;
        
         
         if(this.longitud >= 6){
-            clave = "La contraseña es fuerte";
+            aux = "La contraseña es fuerte";
         }else{
-            clave = "La contraseña es débil";
+            aux = "La contraseña es débil";
         }
         
-        return clave;
+        return aux;
+    }
+    public String mostrar(){
+        String aux;
+        aux = "La Longitud de su contraseña es: "+this.getLongitud()+"\n"
+                +" La Contraseña es: "+this.getClave();
+        
+        return aux;
+    }
+    public void cambiarContraseña(String nueva){
+        String aux;
+        aux = nueva;
+        this.setClave(aux);
     }
 }
