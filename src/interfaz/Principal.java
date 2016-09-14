@@ -19,6 +19,8 @@ public class Principal extends javax.swing.JFrame {
      * Creates new form Principal
      */
     Password p;
+    int longitud;
+    String clave;
     public Principal() {
         initComponents();
         txtClave.setEditable(true);
@@ -128,14 +130,11 @@ public class Principal extends javax.swing.JFrame {
 
     private void cmdMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdMostrarActionPerformed
        
-    int longitud;
-    String clave;
+    
     clave = txtClave.getText();
     longitud = clave.length();
     p = new Password(longitud,clave); 
-    clave = p.getClave();
-    longitud = p.getLongitud();
-    txtResultado.setText("Su contraseña actual es: "+clave+" y su longitud es: "+longitud);
+    p.mostrar();
    
        
         txtClave.setEditable(false);
@@ -150,9 +149,6 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_cmdMostrarActionPerformed
 
     private void cmdGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdGuardarActionPerformed
-    
-    int longitud;
-    String clave;
     if(txtClave.getText().trim().isEmpty()){
         JOptionPane.showMessageDialog(this, "Espacio vacío, Favor llenarlo","ERROR",JOptionPane.ERROR_MESSAGE);
         txtClave.requestFocusInWindow();
@@ -171,21 +167,18 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_cmdGuardarActionPerformed
 
     private void cmdCambiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdCambiarActionPerformed
-        
-        String cambio;
-        int longitud,sw = 1;
+       String cambio;
+        int sw = 1;
         
         do {
             try {
                 cambio = JOptionPane.showInputDialog(this, "Ingrese su contraseña nueva");
-                longitud = cambio.length();
-                p = new Password(longitud, cambio);
-                txtClave.setText(cambio);
-                txtResultado.setText("");
+                p.cambiarContraseña(cambio); 
+               
                 JOptionPane.showMessageDialog(this, "¡Contraseña Modificada!");
                 sw = 1;
             } catch (NullPointerException e) {
-                int res = JOptionPane.showConfirmDialog(this, "¿Seguro que deseas salir?", "Salir", JOptionPane.YES_NO_OPTION);
+                int res = JOptionPane.showConfirmDialog(this, "¿Seguro que desea salir?", "SALIR", JOptionPane.YES_NO_OPTION);
                 if (res == 0) {
                     sw = 1;
                 } else {
@@ -218,10 +211,8 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_cmdLimpiarActionPerformed
 
     private void cmdEstabilidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdEstabilidadActionPerformed
-        String clave;
-        String aux;
-        int longitud;       
-        clave = txtClave.getText();
+     String aux;
+         clave = txtClave.getText();
         longitud = clave.length();
         p = new Password(longitud, clave);
         aux = p.estabilidad();
