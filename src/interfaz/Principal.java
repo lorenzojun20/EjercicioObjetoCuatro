@@ -48,10 +48,11 @@ public class Principal extends javax.swing.JFrame {
         cmdMostrar = new javax.swing.JButton();
         cmdCambiar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        txtResultado = new javax.swing.JTextField();
         cmdGuardar = new javax.swing.JButton();
         cmdLimpiar = new javax.swing.JButton();
         cmdEstabilidad = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtResultado = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -86,9 +87,6 @@ public class Principal extends javax.swing.JFrame {
         jLabel3.setText("Datos Actuales:");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, 130, 30));
 
-        txtResultado.setEditable(false);
-        jPanel1.add(txtResultado, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 250, 300, 30));
-
         cmdGuardar.setText("Guardar");
         cmdGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -113,6 +111,13 @@ public class Principal extends javax.swing.JFrame {
         });
         jPanel1.add(cmdEstabilidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 150, 130, 30));
 
+        txtResultado.setEditable(false);
+        txtResultado.setColumns(20);
+        txtResultado.setRows(5);
+        jScrollPane1.setViewportView(txtResultado);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 250, 270, 60));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -129,13 +134,9 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cmdMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdMostrarActionPerformed
-       
-    
-    clave = txtClave.getText();
-    longitud = clave.length();
-    p = new Password(longitud,clave); 
-    p.mostrar();
-   
+    String aux;
+           aux= p.mostrar();
+   txtResultado.setText(aux);
        
         txtClave.setEditable(false);
         cmdMostrar.setEnabled(false);
@@ -168,30 +169,20 @@ public class Principal extends javax.swing.JFrame {
 
     private void cmdCambiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdCambiarActionPerformed
        String cambio;
-        int sw = 1;
-        
-        do {
-            try {
+       
                 cambio = JOptionPane.showInputDialog(this, "Ingrese su contraseña nueva");
                 p.cambiarContraseña(cambio); 
                
                 JOptionPane.showMessageDialog(this, "¡Contraseña Modificada!");
-                sw = 1;
-            } catch (NullPointerException e) {
-                int res = JOptionPane.showConfirmDialog(this, "¿Seguro que desea salir?", "SALIR", JOptionPane.YES_NO_OPTION);
-                if (res == 0) {
-                    sw = 1;
-                } else {
-                    sw = 0;
-                }
-            }
-        } while (sw == 0);
+                
+            
+        
         
         txtClave.setEditable(false);
         cmdMostrar.setEnabled(true);
         cmdGuardar.setEnabled(false);
         cmdCambiar.setEnabled(false);
-        cmdLimpiar.setEnabled(false);
+        cmdLimpiar.setEnabled(true);
         cmdEstabilidad.setEnabled(true);
 
     }//GEN-LAST:event_cmdCambiarActionPerformed
@@ -271,7 +262,8 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField txtClave;
-    private javax.swing.JTextField txtResultado;
+    private javax.swing.JTextArea txtResultado;
     // End of variables declaration//GEN-END:variables
 }
